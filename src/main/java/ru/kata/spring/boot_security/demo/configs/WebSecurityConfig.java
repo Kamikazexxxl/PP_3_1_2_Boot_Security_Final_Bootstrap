@@ -5,10 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
+import org.springframework.security.core.userdetails.*;
+
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+//import ru.kata.spring.boot_security.demo.model.User;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
+                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
@@ -37,13 +43,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("user")
-                        .roles("USER")
-                        .build();
 
-        return new InMemoryUserDetailsManager(user);
+        List<UserDetails> accounts = new ArrayList<>();
+        accounts.add(
+                User.withDefaultPasswordEncoder()
+                        .username("Ivan")
+                        .password("ivan")
+                        .roles("USER")
+                        .build());
+        accounts.add(
+                User.withDefaultPasswordEncoder()
+                        .username("Rustam")
+                        .password("rustam")
+                        .roles("ADMIN")
+                        .build());
+
+
+        return new InMemoryUserDetailsManager(accounts);
     }
 }
