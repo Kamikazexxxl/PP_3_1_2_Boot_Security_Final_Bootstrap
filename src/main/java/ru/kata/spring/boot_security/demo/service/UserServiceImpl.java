@@ -20,11 +20,10 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     private final UserDao userDao;
 
-    @PersistenceContext
-    private EntityManager em;
+
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -42,20 +41,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllUsers();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userRepository.findByName(name);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        return user;
-    }
 
     @Override
-    public void addUser(String name, String surname, int age, String password) {
-        userDao.addUser(name, surname, age, password);
+    public void addUser(User user) {
+        userDao.addUser(user);
     }
 
     @Override
@@ -74,8 +63,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editUser(int id, String name, String surname, int age, String password) {
-        userDao.editUser(id, name, surname, age, password);
+    public void editUser(User user) {
+        userDao.editUser(user);
     }
 
 }

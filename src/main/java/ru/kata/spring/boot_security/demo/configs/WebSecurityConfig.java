@@ -21,13 +21,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
     private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, PasswordEncoder passwordEncoder, UserService userService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.passwordEncoder = passwordEncoder;
-        this.userService = userService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
 

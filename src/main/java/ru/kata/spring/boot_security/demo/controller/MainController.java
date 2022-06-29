@@ -43,7 +43,7 @@ public class   MainController {
 
     @PostMapping("/add")
     public String createNewUser(@ModelAttribute User user, Model model) {
-        userService.addUser(user.getName(), user.getSurname(), user.getAge(), user.getPassword());
+        userService.addUser(user);
         return "redirect:/admin";
     }
 
@@ -56,7 +56,7 @@ public class   MainController {
 
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
-        userService.editUser(id, user.getName(), user.getSurname(), user.getAge(), user.getPassword());
+        userService.editUser(user);
         return "redirect:/admin";
     }
 
