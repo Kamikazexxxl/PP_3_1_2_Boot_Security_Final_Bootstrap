@@ -1,13 +1,14 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.stereotype.Repository;
+
+import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -15,26 +16,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        TypedQuery<User> typedQuery = entityManager.createQuery("from User", User.class);
-        return typedQuery.getResultList();
+        return entityManager.createQuery("select user from User user", User.class).getResultList();
     }
 
-    @Override
+        @Override
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
     public void deleteUser(int id) {
-        User user = getUser(id);
-        if (user != null) {
-            entityManager.remove(user);
-        }
+
+        entityManager.createQuery("delete from User user where user.id = ?1")
+                .setParameter(1, id)
+                .executeUpdate();
     }
 
     @Override
     public User getUser(int id) {
-        return entityManager.find(User.class, id);
+        return entityManager.createQuery("select u from User u where u.id=:id", User.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
@@ -44,7 +46,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(User user) {
+    public void editUser(int id, String name, String surname, int age, String password) {
+        User user = getUser(id);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setAge(age);
+        user.setPassword(password);
         entityManager.merge(user);
     }
 }

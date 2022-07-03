@@ -13,8 +13,11 @@ import java.util.List;
 @Controller
 public class   MainController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public MainController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/user")
     public String user(Model model, Principal principal) {
@@ -55,8 +58,8 @@ public class   MainController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
-        userService.editUser(user);
+    public String editUser(@PathVariable("id") int id, String name, String surname, int age, String password, Model model) {
+        userService.editUser(id, name, surname, age, password);
         return "redirect:/admin";
     }
 

@@ -10,5 +10,5 @@ public interface UserDao {
     void deleteUser(int id);
     User getUser(int id);
     User getUserByName(String name);
-    void editUser(User user);
+    void editUser(int id, String name, String surname, int age, String password);
 }
