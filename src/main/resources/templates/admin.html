@@ -35,7 +35,7 @@
 
             </th>
             <th>
-                <form th:method="DELETE" th:action="@{/remove/{id}(id=${u.getId()})}">
+                <form th:method="POST" th:action="@{/remove/{id}(id=${u.getId()})}">
                     <input th:type="submit" th:value="Delete"/>
                 </form>
             </th>

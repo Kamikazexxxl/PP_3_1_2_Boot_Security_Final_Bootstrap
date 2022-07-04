@@ -36,7 +36,7 @@ public class MainController {
         return "admin";
     }
 
-    @DeleteMapping("/remove/{id}")
+    @PostMapping("/remove/{id}")
     public String deleteUser(@PathVariable(value = "id") int id) {
         System.out.println("Выполняется контроллер делете юзер");
         userService.deleteUser(id);
