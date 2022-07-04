@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <th:block th:each="u : ${allusers}">
+    <th:block th:each="u : ${allUsers}">
         <tr>
             <th th:text="${u.getName()}" >
             </th>
@@ -29,10 +29,15 @@
             <th th:text="${u.getPassword()}">
             </th>
             <th>
-                <a th:href="@{/edit/{id}(id=${u.getId()})}" class="btn btn-danger">Edit</a>
+                <form th:method="GET" th:action="@{/edit/{id}(id=${u.getId()})}">
+                    <input th:type="submit" th:value="Edit"/>
+                </form>
+
             </th>
             <th>
-                <a th:href="@{/remove/{id}(id=${u.getId()})}" class="btn btn-danger">Delete</a>
+                <form th:method="DELETE" th:action="@{/remove/{id}(id=${u.getId()})}">
+                    <input th:type="submit" th:value="Delete"/>
+                </form>
             </th>
         </tr>
     </th:block>

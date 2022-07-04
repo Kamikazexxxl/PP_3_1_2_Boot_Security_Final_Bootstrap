@@ -11,13 +11,16 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class   MainController {
+@RequestMapping("/")
+public class MainController {
 
     private final UserService userService;
 
+    @Autowired
     public MainController(UserService userService) {
         this.userService = userService;
     }
+
 
     @GetMapping(value = "/user")
     public String user(Model model, Principal principal) {
@@ -29,13 +32,15 @@ public class   MainController {
     @GetMapping(value = {"/admin"})
     public String allUsers(Model model) {
         List<User> AllUsers = userService.getAllUsers();
-        model.addAttribute("allusers", AllUsers);
+        model.addAttribute("allUsers", AllUsers);
         return "admin";
     }
 
-    @RequestMapping(value = "/remove/{id}")
-    public String removeUser(@PathVariable(value = "id") int id) {
+    @DeleteMapping("/remove/{id}")
+    public String deleteUser(@PathVariable(value = "id") int id) {
+        System.out.println("Выполняется контроллер делете юзер");
         userService.deleteUser(id);
+        System.out.println("Контроллер делете юзер выполнился");
         return "redirect:/admin";
     }
 
@@ -45,7 +50,7 @@ public class   MainController {
     }
 
     @PostMapping("/add")
-    public String createNewUser(@ModelAttribute User user, Model model) {
+    public String createNewUser(@ModelAttribute User user) {
         userService.addUser(user);
         return "redirect:/admin";
     }

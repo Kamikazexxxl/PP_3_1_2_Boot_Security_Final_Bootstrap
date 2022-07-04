@@ -26,10 +26,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(int id) {
-
+        System.out.println("Выполняется делете юзер");
         entityManager.createQuery("delete from User user where user.id = ?1")
                 .setParameter(1, id)
                 .executeUpdate();
+        System.out.println("Метод делете юзер выполнен");
     }
 
     @Override
