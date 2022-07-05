@@ -1,35 +1,26 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
-public class MainController {
+@RequestMapping("/admin")
+public class AdminController {
 
     private final UserService userService;
 
     @Autowired
-    public MainController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-
-    @GetMapping(value = "/user")
-    public String user(Model model, Principal principal) {
-        model.addAttribute("user", List.of(userService.getUserByName(principal.getName())));
-        return "user";
-    }
-
-
-    @GetMapping(value = {"/admin"})
+    @GetMapping(value = {"/"})
     public String allUsers(Model model) {
         List<User> AllUsers = userService.getAllUsers();
         model.addAttribute("allUsers", AllUsers);
@@ -38,10 +29,8 @@ public class MainController {
 
     @PostMapping("/remove/{id}")
     public String deleteUser(@PathVariable(value = "id") int id) {
-        System.out.println("Выполняется контроллер делете юзер");
         userService.deleteUser(id);
-        System.out.println("Контроллер делете юзер выполнился");
-        return "redirect:/admin";
+        return "redirect:/admin/";
     }
 
     @GetMapping(value = {"/add"})
@@ -52,7 +41,7 @@ public class MainController {
     @PostMapping("/add")
     public String createNewUser(@ModelAttribute User user) {
         userService.addUser(user);
-        return "redirect:/admin";
+        return "redirect:/admin/";
     }
 
     @GetMapping(value = {"/edit/{id}"})
@@ -65,7 +54,7 @@ public class MainController {
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable("id") int id, String name, String surname, int age, String password, Model model) {
         userService.editUser(id, name, surname, age, password);
-        return "redirect:/admin";
+        return "redirect:/admin/";
     }
 
 }

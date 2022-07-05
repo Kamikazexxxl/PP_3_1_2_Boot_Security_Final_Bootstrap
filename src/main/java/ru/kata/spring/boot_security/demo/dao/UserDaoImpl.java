@@ -2,7 +2,7 @@ package ru.kata.spring.boot_security.demo.dao;
 
 
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,18 +19,16 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery("select user from User user", User.class).getResultList();
     }
 
-        @Override
+    @Override
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
     public void deleteUser(int id) {
-        System.out.println("Выполняется делете юзер");
         entityManager.createQuery("delete from User user where user.id = ?1")
                 .setParameter(1, id)
                 .executeUpdate();
-        System.out.println("Метод делете юзер выполнен");
     }
 
     @Override

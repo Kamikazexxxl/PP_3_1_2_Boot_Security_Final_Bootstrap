@@ -6,7 +6,7 @@
     <title>Add</title>
 </head>
 <body th:align="center">
-<form method="post" th:action="@{/add}" th:object="${newUser}">
+<form method="post" th:action="@{/admin/add}" th:object="${newUser}">
     <span>Name</span>
     <input type="text" th:field="*{name}" id="name"/>
     <br>

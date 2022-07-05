@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -20,22 +20,22 @@
     <tbody>
     <th:block th:each="u : ${allUsers}">
         <tr>
-            <th th:text="${u.getName()}" >
+            <th th:text="${u.getName()}">
             </th>
-            <th th:text="${u.getSurname()}"  >
+            <th th:text="${u.getSurname()}">
             </th>
             <th th:text="${u.getAge()}">
             </th>
             <th th:text="${u.getPassword()}">
             </th>
             <th>
-                <form th:method="GET" th:action="@{/edit/{id}(id=${u.getId()})}">
+                <form th:method="GET" th:action="@{/admin/edit/{id}(id=${u.getId()})}">
                     <input th:type="submit" th:value="Edit"/>
                 </form>
 
             </th>
             <th>
-                <form th:method="POST" th:action="@{/remove/{id}(id=${u.getId()})}">
+                <form th:method="POST" th:action="@{/admin/remove/{id}(id=${u.getId()})}">
                     <input th:type="submit" th:value="Delete"/>
                 </form>
             </th>
@@ -43,7 +43,7 @@
     </th:block>
     </tbody>
 </table>
-<a th:href="@{/add}" class="btn btn-danger">Add</a>
+<a th:href="@{/admin/add}" class="btn btn-danger">Add</a>
 <br>
 <br>
 <br>
