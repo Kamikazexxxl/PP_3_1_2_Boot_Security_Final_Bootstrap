@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
@@ -28,13 +27,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public void addUser(User user) {
         userDao.addUser(user);
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
         userDao.deleteUser(id);
+    }
+
+    @Override
+    @Transactional
+    public void editUser(int id, String name, String surname, int age, String password) {
+        userDao.editUser(id, name, surname, age, password);
     }
 
     @Override
@@ -46,10 +53,4 @@ public class UserServiceImpl implements UserService {
     public User getUserByName(String name) {
         return userDao.getUserByName(name);
     }
-
-    @Override
-    public void editUser(int id, String name, String surname, int age, String password) {
-        userDao.editUser(id, name, surname, age, password);
-    }
-
 }
