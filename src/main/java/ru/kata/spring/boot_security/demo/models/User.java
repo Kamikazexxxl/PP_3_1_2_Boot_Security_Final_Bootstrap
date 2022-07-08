@@ -44,14 +44,6 @@ public class User implements UserDetails {
         return getRoles();
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public String getUsername() {
         return name;

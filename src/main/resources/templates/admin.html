@@ -13,6 +13,7 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Password</th>
+        <th>Role</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -27,6 +28,8 @@
             <th th:text="${u.getAge()}">
             </th>
             <th th:text="${u.getPassword()}">
+            </th>
+            <th th:text="${u.roles}">
             </th>
             <th>
                 <form th:method="GET" th:action="@{/admin/edit/{id}(id=${u.getId()})}">
