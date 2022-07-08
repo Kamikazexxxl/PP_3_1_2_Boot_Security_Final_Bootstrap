@@ -16,5 +16,5 @@ public interface UserDao {
 
     User getUserByName(String name);
 
-    void editUser(int id, String name, String surname, int age, String password);
+    void editUser(User user);
 }
