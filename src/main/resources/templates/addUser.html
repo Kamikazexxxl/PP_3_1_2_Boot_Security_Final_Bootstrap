@@ -19,6 +19,12 @@
     <span>Password</span>
     <input type="text" th:field="*{password}" id="password"/>
     <br>
+    <span>Roles:</span>
+    <label for="rs">admin</label>
+    <input type="checkbox" th:name="role" id="rs">
+    <label for="rs1">user</label>
+    <input type="checkbox" th:name="role"  id="rs1">
+    <br>
     <input type="submit" value="Add!"/>
 </form>
 <br>
