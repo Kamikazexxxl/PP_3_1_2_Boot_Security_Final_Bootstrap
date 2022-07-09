@@ -19,6 +19,13 @@
     <span>Password</span>
     <input type="text" th:field="*{password}" id="password"/>
     <br>
+    <br>
+    <span>Roles:</span>
+    <label for="rs">admin</label>
+    <input type="checkbox" th:name="role" th:value="${adminRole.getAuthority()}" id="rs">
+    <label for="rs1">user</label>
+    <input type="checkbox" th:name="role"  th:value="${userRole.getAuthority()}" id="rs1">
+    <br>
     <input type="submit" value="Accept changes"/>
 </form>
 <br>

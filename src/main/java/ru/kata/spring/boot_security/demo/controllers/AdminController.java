@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.CustomUserDetailsService;
 import ru.kata.spring.boot_security.demo.services.RoleService;
+import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.util.List;
@@ -43,8 +45,9 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String createNUser(@ModelAttribute User user) {
-        userService.addUser(user);
+    public String createNUser(@ModelAttribute("user") User user,
+                              @RequestParam(value = "role") String[] roles) {
+        userService.addUser(user, roles);
         return "redirect:/admin/";
     }
 
